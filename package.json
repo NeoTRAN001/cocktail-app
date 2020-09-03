@@ -1,0 +1,22 @@
+{
+  "name": "cocktail-lit",
+  "version": "0.0.0",
+  "description": "Webcomponent cocktail-lit following open-wc recommendations",
+  "author": "cocktail-lit",
+  "license": "MIT",
+  "scripts": {
+    "start": "es-dev-server --app-index index.html --node-resolve --open --watch"
+  },
+  "dependencies": {
+    "@polymer/iron-icon": "^3.0.1",
+    "@polymer/iron-icons": "^3.0.1",
+    "@polymer/paper-button": "^3.0.1",
+    "@polymer/paper-card": "^3.0.1",
+    "@polymer/paper-input": "^3.2.1",
+    "lit-html": "^1.0.0",
+    "lit-element": "^2.0.1"
+  },
+  "devDependencies": {
+    "es-dev-server": "^1.5.0"
+  }
+}
