@@ -13,7 +13,7 @@ export class CocktailLit extends LitElement {
   constructor() {
     super();
 
-    this.logged = true;
+    this.logged = false;
 
     this.addEventListener('LoginSuccess', (e) => { 
       this._enterHome(e.detail.success, e.detail.message, e.detail.email);
@@ -24,10 +24,10 @@ export class CocktailLit extends LitElement {
     if(success) {
       this.logged = true;
       this.email = email;
-      // Agregar un toast para indicar que todo bien
+      alert('Mensaje temporal de bienvenida :D');
     } else {
       this.logged = false;
-      // Agregar un toast para indicar el error
+      alert('Mensaje temporal de error :(');
     }
   }
 

@@ -27,7 +27,6 @@ export class HomeCokctail extends LitElement {
 
     _dataFormat(data) {
         this.dataCocktail = JSON.stringify(data);
-       
     }
 
     static get styles() {
