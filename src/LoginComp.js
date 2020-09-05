@@ -8,8 +8,8 @@ import '@polymer/iron-icons/iron-icons.js';
 
 export class LoginComp extends LitElement {
 
-    static get styles() {
-        return css `
+  static get styles() {
+    return css`
         :host {
           display: block;
           padding: 25px;
@@ -81,39 +81,46 @@ export class LoginComp extends LitElement {
           width: 20px;
           height: 20px;
         }
+
+        @media screen and (max-width: 930px) {
+          #izq {
+            display: none;
+          }
+          .paperCardCont {
+            width: 90%;
+          }
+        }  
       `;
-    }
+  }
 
-    static get properties() {
-        return {
-            title: {
-                type: String
-            },
-            subtitle: {
-                type: String
-            }
-        };
-    }
+  static get properties() {
+    return {
+      title: {
+        type: String
+      },
+      subtitle: {
+        type: String
+      }
+    };
+  }
 
-    constructor() {
-        super();
-        this.title = 'LOGIN';
-        this.subtitle = "COCKTAIL LIST"
-    }
+  constructor() {
+    super();
+    this.title = 'LOGIN';
+    this.subtitle = "COCKTAIL LIST"
+  }
 
-    render() {
-        return html `
+  render() {
+    return html`
           <div id="cont">
-            <paper-card>
-
-              <div style="background: #ccc; border-radius: 10px;">
-                <img class="image" src="img/martini.svg" alt="">
-                <h2 id="titulo">${this.subtitle}</h2>
+            <paper-card elevation="0" class="paperCardCont">
+              <div id="izq">
+                <img class="image" src="https://firebasestorage.googleapis.com/v0/b/mitzy-workshoplogin.appspot.com/o/martini.svg?alt=media&token=7ef4eece-2b25-466e-b87e-52b3f82b06cf" alt="">
+                <h2>${this.subtitle}</h2>
               </div>
-              
-              <div style="margin: 10px;">
+              <div id="der">
                 <div class="card-content">
-                <h2 id="titulo">${this.title}</h2>
+                  <h2 id="titulo">${this.title}</h2>
                   <paper-input id="inputmail" class="custom-input" label="Email">
                     <iron-icon icon="mail" slot="prefix"></iron-icon>
                   </paper-input>
@@ -122,29 +129,28 @@ export class LoginComp extends LitElement {
                   </paper-input>
                 </div>
                 <div class="card-actions">
-                  <paper-button raised class="custom pink" @click="${this._sendLogin}">link</paper-button>
+                  <paper-button raised class="custom" @click="${this._sendLogin}">Enter</paper-button>
                 </div>
               </div>
-          
             </paper-card>
           </div>
       `;
-    }
+  }
 
-    _sendLogin() {
-        const email = this.shadowRoot.getElementById('inputmail').value;
-        const password = this.shadowRoot.getElementById('inputpas').value;
-        const expReg = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-        const success = expReg.test(email);
-        let message = 'You have successfully logged in';
+  _sendLogin() {
+    const email = this.shadowRoot.getElementById('inputmail').value;
+    const password = this.shadowRoot.getElementById('inputpas').value;
+    const expReg = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    const success = expReg.test(email);
+    let message = 'You have successfully logged in';
 
-        if (email === '' || password === '') message = "Enter email and password";
-        else if (!success) message = "Enter valid email";
-        
-        this.dispatchEvent(new CustomEvent('LoginSuccess', {
-            detail: { success, message, email }, bubbles: true, composed: true
-        }));      
-    }
+    if (email === '' || password === '') message = "Enter email and password";
+    else if (!success) message = "Enter valid email";
+
+    this.dispatchEvent(new CustomEvent('LoginSuccess', {
+      detail: { success, message, email }, bubbles: true, composed: true
+    }));
+  }
 
 }
 
