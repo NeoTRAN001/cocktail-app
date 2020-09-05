@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit-element';
+import AlertInfo from'./AlertInfo';
 import './LoginComp';
 import './HomeCocktail';
 
@@ -13,7 +14,7 @@ export class CocktailLit extends LitElement {
   constructor() {
     super();
 
-    this.logged = false;
+    this.logged = true
 
     this.addEventListener('LoginSuccess', (e) => { 
       this._enterHome(e.detail.success, e.detail.message, e.detail.email);
@@ -21,13 +22,15 @@ export class CocktailLit extends LitElement {
   }
 
   _enterHome(success, message, email) {
+    let info = new AlertInfo();
+
     if(success) {
       this.logged = true;
       this.email = email;
-      alert('Mensaje temporal de bienvenida :D');
+      info.successModal("Welcome :D")
     } else {
       this.logged = false;
-      alert('Mensaje temporal de error :(');
+      info.errorModal("Enter a valid email and password");
     }
   }
 
