@@ -15,7 +15,7 @@ export class HomeCokctail extends LitElement {
         super();
 
         this.dataCocktail = [];
-        this.email = "Test"
+        this.email = ""
 
         this._cocktailAPI("https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic", false);
 
@@ -64,8 +64,6 @@ export class HomeCokctail extends LitElement {
 
         let cocktailInfo = [];
         let info = new AlertInfo();
-
-        console.log(data);
         
         if(data['drinks']) {
             data['drinks'].forEach(cocktail => {
@@ -156,15 +154,12 @@ export class HomeCokctail extends LitElement {
 
     render() {
         return html`
-            <modal-info></modal-info>
             <div class="grid">
                 <div>
                     <menu-side></menu-side>
                 </div>
                 <div>
-                    <div class="welcomeMessage">
-                        <h2>Welcome ${this.email}!<h2>
-                    </div>
+                    <h2>Welcome ${this.email}!<h2>
                     ${this.dataCocktail.map(cocktail => html`
                         <div class="card">
                             <div class="div-img hidden" >
@@ -173,7 +168,6 @@ export class HomeCokctail extends LitElement {
                         </div>
                     `)}
                 </div>
-               
             </div>
         `;
     }

@@ -8,8 +8,7 @@ export class MenuSide extends LitElement {
         }));  
     }
 
-    _getDrinkName(e) {
-        
+    _getDrinkName(e) {  
         if(e.keyCode == 13) {
             let name = this.shadowRoot.querySelector("#inputSearch").value;
             name = name.toLowerCase();
