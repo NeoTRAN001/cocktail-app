@@ -10,10 +10,17 @@ class AlertInfo {
         });
     }
 
-    errorModal() {
+    errorModal(message = 'Nop') {
         Swal.fire({
-            title: 'Nop',
+            title: message,
             icon: 'error'
+        });
+    }
+
+    successModal(message) {
+        Swal.fire({
+            title: message,
+            icon: 'success'
         });
     }
 }
