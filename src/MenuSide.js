@@ -43,7 +43,7 @@ export class MenuSide extends LitElement {
                     <div class="ui label">99</div>
                 </a>
                 <div class="item">
-                    <img class="image" src="img/blue-lagoon.svg" alt="">
+                    <img class="image" src="img/martini.svg" alt="">
                 </div>
             </div>
         `;
@@ -53,6 +53,10 @@ export class MenuSide extends LitElement {
         return css`
             .item {
                 color: white;
+            }
+
+            .image {
+                margin-top: 81px !important;   
             }
         `;  
     }
