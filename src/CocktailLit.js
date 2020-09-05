@@ -14,7 +14,7 @@ export class CocktailLit extends LitElement {
   constructor() {
     super();
 
-    this.logged = true
+    this.logged = false;
 
     this.addEventListener('LoginSuccess', (e) => { 
       this._enterHome(e.detail.success, e.detail.message, e.detail.email);
