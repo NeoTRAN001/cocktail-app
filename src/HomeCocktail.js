@@ -131,8 +131,26 @@ export class HomeCokctail extends LitElement {
             -moz-transform: scale(1);
             -webkit-transform: scale(1);
             -o-transform: scale(1);
+            cursor: pointer;
           }
+
+          @media screen and (max-width: 930px) {
+            .grid {
+                display: grid;
+                grid-template-columns: 40% 60%;
+            }
+          }  
           
+          @media screen and (max-width: 620px) {
+            .grid {
+                display: grid;
+                grid-template-columns: 100%;
+            }
+
+            menu-side {
+                display: none;
+            }
+          }
         `;
     }
 
