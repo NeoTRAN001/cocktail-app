@@ -36,6 +36,7 @@ export class LoginComp extends LitElement {
           text-align: center;
           color: #22223B;
         }
+
         paper-button.custom {
           background-color: #22223B !important;
           color: white !important;
@@ -105,12 +106,12 @@ export class LoginComp extends LitElement {
           <div id="cont">
             <paper-card>
 
-              <div style="background: #ccc;">
+              <div style="background: #ccc; border-radius: 10px;">
                 <img class="image" src="img/martini.svg" alt="">
                 <h2 id="titulo">${this.subtitle}</h2>
               </div>
               
-              <div>
+              <div style="margin: 10px;">
                 <div class="card-content">
                 <h2 id="titulo">${this.title}</h2>
                   <paper-input id="inputmail" class="custom-input" label="Email">

@@ -26,7 +26,17 @@ export class HomeCokctail extends LitElement {
     }
 
     _dataFormat(data) {
-        this.dataCocktail = JSON.stringify(data);
+        let cocktails = [];
+
+        data['drinks'].forEach((cocktail) => {
+            cocktails.push({
+                id: cocktail.idDrink,
+                img: cocktail.strDrinkThumb,
+                name: cocktail.strDrink,
+            });
+        });
+
+        this.dataCocktail = cocktails;
     }
 
     static get styles() {
@@ -34,9 +44,26 @@ export class HomeCokctail extends LitElement {
           :host {
             display: block; 
           }
+
           .grid {
               display: grid;
               grid-template-columns: 20% 70%;
+          }
+
+          .card {
+            background: #fff;
+            color: black;
+            border-radius: 2px;
+            display: inline-block;
+            height: 300px;
+            margin: 1rem;
+            position: relative;
+            width: 300px;
+            box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+          }          
+
+          .imgCocktail {
+              max-width: 100px;
           }
         `;
     }
@@ -49,7 +76,12 @@ export class HomeCokctail extends LitElement {
                     <div class="welcomeMessage">
                         <h2>Welcome ${this.email}!<h2>
                     </div>
-                    ${this.dataCocktail}
+                    ${this.dataCocktail.map(cocktail => html`
+                        <div class="card">
+                            <img class="imgCocktail" src="${cocktail.img}">
+                            <p>${cocktail.name}</p>
+                        </div>
+                    `)}
                 </div>
                
             </div>
