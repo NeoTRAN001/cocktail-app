@@ -1,5 +1,6 @@
 import { LitElement, html, css } from 'lit-element';
-import './menu-side';
+import './MenuSide';
+import AlertInfo from'./AlertInfo';
 
 export class HomeCokctail extends LitElement {
 
@@ -16,17 +17,33 @@ export class HomeCokctail extends LitElement {
         this.dataCocktail = [];
         this.email = "Test"
 
-        fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita', { method: 'POST' })
+        this._cocktailAPI("https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic", false);
+
+        this.addEventListener('categoryCocktail', (e) => {
+            this._cocktailAPI(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${e.detail.category}`, false); 
+        });
+
+        this.addEventListener('nameCocktail', (e) => {
+            this._cocktailAPI(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${e.detail.name}`, true); 
+        });
+    }
+
+    _cocktailAPI(url, aCocktail) {
+        fetch(url, { method: 'GET' })
         .then((response) => {
             if (response.ok) return response.json();
             return Promise.reject(response);
         })
-        .then((data) => { this._dataFormat(data); })
+        .then((data) => { 
+            if(!aCocktail) this._dataFormat(data); 
+            else this._openModalInfo(data);
+        })
         .catch((error) => { console.warn('Something went wrong.', error); });
     }
 
     _dataFormat(data) {
         let cocktails = [];
+        this.dataCocktail = [];
 
         data['drinks'].forEach((cocktail) => {
             cocktails.push({
@@ -39,6 +56,36 @@ export class HomeCokctail extends LitElement {
         this.dataCocktail = cocktails;
     }
 
+    _infoCocktail(id) {
+        this._cocktailAPI(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`, true);
+    }
+
+    _openModalInfo(data) {
+
+        let cocktailInfo = [];
+        let info = new AlertInfo();
+
+        console.log(data);
+        
+        if(data['drinks']) {
+            data['drinks'].forEach(cocktail => {
+                cocktailInfo.push({
+                    category: cocktail.strCategory,
+                    img:      cocktail.strDrinkThumb,
+                    name:     cocktail.strDrink,
+                    ingredients: [
+                        cocktail.strIngredient1,
+                        " "+cocktail.strIngredient2,
+                        " "+cocktail.strIngredient3,
+                        " "+cocktail.strIngredient4
+                    ]
+                });
+            });
+    
+            info.showModal(cocktailInfo);
+        } else info.errorModal();
+    }
+
     static get styles() {
         return css`
           :host {
@@ -47,39 +94,64 @@ export class HomeCokctail extends LitElement {
 
           .grid {
               display: grid;
-              grid-template-columns: 20% 70%;
+              grid-template-columns: 20% 80%;
+          }
+
+          menu-side {
+            position: fixed;
           }
 
           .card {
-            background: #fff;
-            color: black;
-            border-radius: 2px;
             display: inline-block;
-            height: 300px;
+            height: 200px;
+            width: 200px;
             margin: 1rem;
             position: relative;
-            width: 300px;
-            box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
-          }          
-
-          .imgCocktail {
-              max-width: 100px;
           }
+
+          .div-img .img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+            transform: scale(1.2);
+            -ms-transform: scale(1.2);
+            -moz-transform: scale(1.2);
+            -webkit-transform: scale(1.2);
+            -o-transform: scale(1.2);
+            -webkit-transition: all 500ms ease-in-out;
+            -moz-transition: all 500ms ease-in-out;
+            -ms-transition: all 500ms ease-in-out;
+            -o-transition: all 500ms ease-in-out;
+          }
+          
+          .div-img:hover .img {
+            transform: scale(1);
+            -ms-transform: scale(1);
+            -moz-transform: scale(1);
+            -webkit-transform: scale(1);
+            -o-transform: scale(1);
+          }
+          
         `;
     }
 
     render() {
         return html`
+            <modal-info></modal-info>
             <div class="grid">
-                <menu-side></menu-side>
+                <div>
+                    <menu-side></menu-side>
+                </div>
                 <div>
                     <div class="welcomeMessage">
                         <h2>Welcome ${this.email}!<h2>
                     </div>
                     ${this.dataCocktail.map(cocktail => html`
                         <div class="card">
-                            <img class="imgCocktail" src="${cocktail.img}">
-                            <p>${cocktail.name}</p>
+                            <div class="div-img hidden" >
+                                <img @click=${() => this._infoCocktail(cocktail.id)} class="img" src="${cocktail.img}">
+                            </div>
                         </div>
                     `)}
                 </div>
