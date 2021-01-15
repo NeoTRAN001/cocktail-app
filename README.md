@@ -11,7 +11,8 @@
 To get started:
 
 ```bash
-npm init @open-wc
+cd cocktail-app
+npm run start
 # requires node 10 & npm 6 or higher
 ```
 
