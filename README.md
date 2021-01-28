@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="200" src="https://open-wc.org/b6baa312.svg"></img>
+  <img width="200" src="https://open-wc.org/35ded306.svg"></img>
 </p>
 
 ## Open-wc Starter App
