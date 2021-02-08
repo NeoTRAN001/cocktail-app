@@ -12,6 +12,7 @@ To get started:
 
 ```bash
 cd cocktail-app
+npm i
 npm run start
 # requires node 10 & npm 6 or higher
 ```
